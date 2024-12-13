@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style>
+        .cyberpunk-portfolio {
+          background: #000;
+          min-height: 900px;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          padding: 0 48px;
+        }
+        
+        .header {
+          background: #000;
+          width: 100%;
+          padding-top: 24px;
+          color: #fff;
+          font: 400 17px/1 'Inria Sans', sans-serif;
+        }
+        
+        .nav-container {
+          border-radius: 16px;
+          background: rgba(193, 29, 29, 0.06);
+          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.16);
+          display: flex;
+          width: 1080px;
+          max-width: 100%;
+          align-items: center;
+          justify-content: space-between;
+          padding: 24px 32px;
+          position: relative;
+        }
+        
+        .nav-links {
+          display: flex;
+          align-items: center;
+          gap: 32px;
+          z-index: 1;
+        }
+        
+        .brand {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          font: 42px/1 'Staatliches', sans-serif;
+          letter-spacing: -1.68px;
+        }
+        
+        .main-content {
+          display: flex;
+          width: 100%;
+          flex-direction: column;
+          padding: 48px 0;
+        }
+        
+        .hero {
+          background: #000;
+          color: #fff;
+          text-align: center;
+          padding: 96px 0;
+          font: 500 120px/1 'Red Hat Display', sans-serif;
+          letter-spacing: -2.4px;
+        }
+
+        .hero-h1{
+          color: #FFF;
+          text-align: center;
+          font-family: "Red Hat Display";
+          font-size: 120px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 120px; /* 100% */
+          letter-spacing: -2.4px;
+        }
+        
+        .hero-image {
+          width: 100%;
+          border-radius: 28px;
+          margin-top: 48px;
+        }
+        
+        .project-grid {
+          display: flex;
+          flex-direction: column;
+          font-family: 'Inria Sans', sans-serif;
+        }
+        
+        .project-row {
+          display: flex;
+          gap: 48px;
+          padding: 48px 0;
+        }
+        
+        .project-card {
+          flex: 1;
+          min-width: 240px;
+          min-height: 333px;
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .project-image {
+          aspect-ratio: 1.5;
+          width: 100%;
+          object-fit: cover;
+          flex: 1;
+        }
+        
+        .project-info {
+          margin-top: 8px;
+        }
+        
+        .project-title {
+          color: #fff;
+          font-size: 20px;
+          line-height: 1.2;
+        }
+        
+        .project-category {
+          color: rgba(255,255,255,0.6);
+          font-size: 17px;
+          line-height: 1;
+        }
+        
+        .section-title {
+          color: #fff;
+          font: 500 64px/1 'Red Hat Display', sans-serif;
+          letter-spacing: -1.28px;
+        }
+        
+        .section-description {
+          color: rgba(255,255,255,0.6);
+          font: 400 24px/32px 'Inria Sans', sans-serif;
+          letter-spacing: -0.12px;
+        }
+        
+        .cta-button {
+          display: inline-block;
+          border-radius: 8px;
+          background: #C11D1D;
+          color: #fff;
+          padding: 12px 24px;
+          font: 700 20px/1.2 'Inria Sans', sans-serif;
+          cursor: pointer;
+        }
+        
+        .contact-form {
+          max-width: 700px;
+          margin: 48px auto;
+        }
+        
+        .form-group {
+          display: flex;
+          gap: 16px;
+          margin-bottom: 16px;
+        }
+        
+        .form-input {
+          flex: 1;
+          min-height: 44px;
+          border-radius: 8px;
+          background: #000;
+          border: 2px solid rgba(255,255,255,0.24);
+          color: #fff;
+          padding: 12px;
+          font: 400 15px/1 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        .form-textarea {
+          min-height: 124px;
+          width: 100%;
+        }
+        
+        .testimonials {
+          display: flex;
+          gap: 24px;
+          overflow-x: auto;
+          padding: 48px 0;
+        }
+        
+        .testimonial-card {
+          min-width: 240px;
+          width: 288px;
+          border-radius: 16px;
+          border: 2px solid rgba(255,255,255,0.24);
+          padding: 24px;
+          background: #000;
+        }
+        
+        .testimonial-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        
+        .testimonial-avatar {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+        }
+        
+        .testimonial-author {
+          color: #fff;
+          font: 700 15px/1 'Inria Sans', sans-serif;
+        }
+        
+        .testimonial-role {
+          color: rgba(255,255,255,0.6);
+          font: 400 15px/1 'Inria Sans', sans-serif;
+        }
+        
+        .testimonial-content {
+          color: #fff;
+          font: 400 20px/24px 'Inria Sans', sans-serif;
+          margin-top: 16px;
+        }
+        
+        .footer {
+          background: #000;
+          padding: 96px 0 24px;
+          color: #fff;
+        }
+        
+        .footer-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 40px 100px;
+        }
+        
+        .footer-copyright {
+          color: rgba(255,255,255,0.6);
+          font: 500 28px/1 'Red Hat Display', sans-serif;
+          letter-spacing: -0.28px;
+        }
+        
+        .footer-button {
+          border: 2px solid rgba(255,255,255,0.16);
+          border-radius: 8px;
+          padding: 12px 24px;
+          font: 700 20px/1.2 'Inria Sans', sans-serif;
+        }
+        
+        .visually-hidden {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0,0,0,0);
+          border: 0;
+        }
+        
+        @media (max-width: 991px) {
+          .cyberpunk-portfolio {
+            padding: 0 20px;
+          }
+          
+          .nav-container {
+            padding: 0 20px;
+          }
+          
+          .hero {
+            font-size: 40px;
+          }
+          
+          .hero-image {
+            margin-top: 40px;
+          }
+          
+          .section-title {
+            font-size: 40px;
+          }
+          
+          .cta-button {
+            padding: 0 20px;
+          }
+          
+          .footer-button {
+            padding: 0 20px;
+          }
+        }
+        </style>
+    </head>
+    <body>
+        <div class="cyberpunk-portfolio">
+        <header class="header">
+            <nav class="nav-container">
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#about">About</a>
+            </div>
+            <a href="#contact">Contact</a>
+            <div class="brand">NeonPortfolio</div>
+            </nav>
+        </header>
+        
+        <main class="main-content">
+            <section class="hero">
+            <h1 class="hero-h1">Welcome to the Future</h1>
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ff9e61afbe1607d7c1d8a4e0ec3c9cff440ce456c0e5f76b73dece5fc1c6ce6c?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Futuristic cityscape with neon lights" class="hero-image">
+            </section>
+        
+            <section class="project-grid">
+            <div class="project-row">
+                <article class="project-card">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d73ddfe4bd82a539df34436a8cb33487bb45d692d1ffbd0878df644fec099c?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Neon cityscape photography" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Neon Cityscape</h3>
+                    <p class="project-category">Photography</p>
+                </div>
+                </article>
+        
+                <article class="project-card">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4d299aaf3a6c98ef1e83915ded61091faeee903233fb461a3209cc1af9c6b536?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Cyberpunk portrait illustration" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Cyberpunk Portrait</h3>
+                    <p class="project-category">Illustration</p>
+                </div>
+                </article>
+        
+                <article class="project-card">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ebd20ae1ab3746089dca025288bd620b94e6b4a30cf2aa9ad9ae8eb0c353aa6?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Digital glitch art" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Glitch Art</h3>
+                    <p class="project-category">Digital Art</p>
+                </div>
+                </article>
+            </div>
+        
+            <div class="project-row">
+                <article class="project-card">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/78664ec5e899875e2f590c9be5d44289d6597a4043afa99a55e6c523c4ff7ee6?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Holographic advertisement designs" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Holographic Ads</h3>
+                    <p class="project-category">Graphic Design</p>
+                </div>
+                </article>
+        
+                <article class="project-card">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c3ff4e3e61e16d8f4f2eb2a0ba5af87e9535ce6de3851f342ddd59aff2bb6086?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Dystopian future concept art" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Dystopian Future</h3>
+                    <p class="project-category">Concept Art</p>
+                </div>
+                </article>
+        
+                <article class="project-card">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac4b7f45c5b16aff3ffe72ec4f2c98a702fc99a0570b137bd5b22b02e4121c95?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Neon dreams photography" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Neon Dreams</h3>
+                    <p class="project-category">Photography</p>
+                </div>
+                </article>
+            </div>
+        
+            <div class="project-row">
+                <article class="project-card">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/0f4710988872125cda59260a035fbce8eb1e0fb30260a603453aa36e61d24fac?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Tech noir illustration" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Tech Noir</h3>
+                    <p class="project-category">Illustration</p>
+                </div>
+                </article>
+        
+                <article class="project-card">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/bce0115587dfe8bf16c28fca570329447721e62dba4dd19d4f72440ddc6a9906?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Digital decay artwork" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Digital Decay</h3>
+                    <p class="project-category">Digital Art</p>
+                </div>
+                </article>
+        
+                <article class="project-card">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1018ec6098f25b6a93a90ce41cabd58a2c86d9595081ab4d6a4b28e3505d4275?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Urban glow photography" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Urban Glow</h3>
+                    <p class="project-category">Photography</p>
+                </div>
+                </article>
+            </div>
+            </section>
+        
+            <section class="contact-section">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-description">Feel free to reach out for collaborations or just a friendly chat.</p>
+        
+            <form class="contact-form">
+                <div class="form-group">
+                <div>
+                    <label for="firstName" class="visually-hidden">First name</label>
+                    <input type="text" id="firstName" class="form-input" placeholder="First name" required>
+                </div>
+                <div>
+                    <label for="lastName" class="visually-hidden">Last name</label>
+                    <input type="text" id="lastName" class="form-input" placeholder="Last name" required>
+                </div>
+                </div>
+                
+                <div>
+                <label for="email" class="visually-hidden">Email</label>
+                <input type="email" id="email" class="form-input" placeholder="Email" required>
+                </div>
+        
+                <div>
+                <label for="message" class="visually-hidden">Message</label>
+                <textarea id="message" class="form-input form-textarea" placeholder="Your message" required></textarea>
+                </div>
+        
+                <button type="submit" class="cta-button">Submit</button>
+            </form>
+            </section>
+        
+            <section class="testimonials">
+            <article class="testimonial-card">
+                <div class="testimonial-header">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c5565300bfbcdff56e0926050928e9bcb69435c7ccf3b959003dc0c5e75c6615?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Liora Kavanagh" class="testimonial-avatar">
+                <div>
+                    <p class="testimonial-author">Liora Kavanagh</p>
+                    <p class="testimonial-role">Art Director</p>
+                </div>
+                </div>
+                <p class="testimonial-content">A true visionary in the world of digital art.</p>
+            </article>
+        
+            <article class="testimonial-card">
+                <div class="testimonial-header">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/9ac35b3c36520c6dc15088f17a3afcf56aad9ad9a21674011124015d026cb65e?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Quentin Driscoll" class="testimonial-avatar">
+                <div>
+                    <p class="testimonial-author">Quentin Driscoll</p>
+                    <p class="testimonial-role">Photographer</p>
+                </div>
+                </div>
+                <p class="testimonial-content">Transforms the ordinary into the extraordinary.</p>
+            </article>
+        
+            <article class="testimonial-card">
+                <div class="testimonial-header">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba79c1ac5c5f334a7c3b889b79d4bb7a569219d772f691249a9733e472747b97?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Zara Huxley" class="testimonial-avatar">
+                <div>
+                    <p class="testimonial-author">Zara Huxley</p>
+                    <p class="testimonial-role">Graphic Designer</p>
+                </div>
+                </div>
+                <p class="testimonial-content">Innovative, creative, and always pushing boundaries.</p>
+            </article>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <div class="footer-content">
+            <p class="footer-copyright">2023 NeonPortfolio</p>
+            <button class="footer-button">Contact Me</button>
+            </div>
+        </footer>
+        </div>
+    </body>
+</html>
