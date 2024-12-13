@@ -1,2 +1,1 @@
 # snw-capstone
-# snw-capstone
