@@ -1,464 +1,626 @@
 <!DOCTYPE html>
-<html>
-
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeonPortfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700&family=Staatliches&family=Inria+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        .cyberpunk-portfolio {
-          background: #000;
-          min-height: 900px;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          padding: 0 48px;
-        }
-        
-        .header {
-          background: #000;
-          width: 100%;
-          padding-top: 24px;
-          color: #fff;
-          font: 400 17px/1 'Inria Sans', sans-serif;
-        }
-        
-        .nav-container {
-          border-radius: 16px;
-          background: rgba(193, 29, 29, 0.06);
-          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.16);
-          display: flex;
-          width: 1080px;
-          max-width: 100%;
-          align-items: center;
-          justify-content: space-between;
-          padding: 24px 32px;
-          position: relative;
-        }
-        
-        .nav-links {
-          display: flex;
-          align-items: center;
-          gap: 32px;
-          z-index: 1;
-        }
-        
-        .brand {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          font: 42px/1 'Staatliches', sans-serif;
-          letter-spacing: -1.68px;
-        }
-        
-        .main-content {
-          display: flex;
-          width: 100%;
-          flex-direction: column;
-          padding: 48px 0;
-        }
-        
-        .hero {
-          background: #000;
-          color: #fff;
-          text-align: center;
-          padding: 96px 0;
-          font: 500 120px/1 'Red Hat Display', sans-serif;
-          letter-spacing: -2.4px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .hero-h1{
-          color: #FFF;
-          text-align: center;
-          font-family: "Red Hat Display";
-          font-size: 120px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 120px; /* 100% */
-          letter-spacing: -2.4px;
+        body {
+            background-color: black;
+            font-family: 'Red Hat Display', sans-serif;
+            color: white;
+            overflow-x: hidden;
         }
-        
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .nav-container {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            background: rgba(193, 29, 29, 0.06);
+            border-radius: 16px;
+        }
+
+        .logo {
+            font-family: 'Staatliches', sans-serif;
+            font-size: 42px;
+            letter-spacing: -1.68px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Inria Sans', sans-serif;
+            font-size: 17px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: rgba(193, 29, 29, 1);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        .main {
+            margin-top: 120px;
+            padding: 0 48px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 48px 0;
+        }
+
+        .hero-title {
+            font-size: 120px;
+            line-height: 1;
+            letter-spacing: -2.4px;
+            margin-bottom: 48px;
+        }
+
         .hero-image {
-          width: 100%;
-          border-radius: 28px;
-          margin-top: 48px;
+            width: 100%;
+            max-width: 1080px;
+            border-radius: 28px;
         }
-        
-        .project-grid {
-          display: flex;
-          flex-direction: column;
-          font-family: 'Inria Sans', sans-serif;
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+            max-width: 1080px;
+            margin: 48px auto;
         }
-        
-        .project-row {
-          display: flex;
-          gap: 48px;
-          padding: 48px 0;
+
+        .card {
+            position: relative;
+            overflow: hidden;
         }
-        
-        .project-card {
-          flex: 1;
-          min-width: 240px;
-          min-height: 333px;
-          display: flex;
-          flex-direction: column;
+
+        .card img {
+            width: 100%;
+            aspect-ratio: 1.5;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
         }
-        
-        .project-image {
-          aspect-ratio: 1.5;
-          width: 100%;
-          object-fit: cover;
-          flex: 1;
+
+        .card:hover img {
+            transform: scale(1.05);
         }
-        
-        .project-info {
-          margin-top: 8px;
+
+        .card-content {
+            margin-top: 8px;
         }
-        
-        .project-title {
-          color: #fff;
-          font-size: 20px;
-          line-height: 1.2;
+
+        .card-title {
+            font-size: 20px;
+            line-height: 1.2;
+            color: white;
         }
-        
-        .project-category {
-          color: rgba(255,255,255,0.6);
-          font-size: 17px;
-          line-height: 1;
+
+        .card-subtitle {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Inria Sans', sans-serif;
         }
-        
-        .section-title {
-          color: #fff;
-          font: 500 64px/1 'Red Hat Display', sans-serif;
-          letter-spacing: -1.28px;
+
+        .feature-pretext{
+            display: inline-block;
+            
         }
-        
-        .section-description {
-          color: rgba(255,255,255,0.6);
-          font: 400 24px/32px 'Inria Sans', sans-serif;
-          letter-spacing: -0.12px;
+
+        .feature {
+            display: flex;
+            gap: 48px;
+            max-width: 1080px;
+            margin: 96px auto;
+            align-items: center;
         }
-        
-        .cta-button {
-          display: inline-block;
-          border-radius: 8px;
-          background: #C11D1D;
-          color: #fff;
-          padding: 12px 24px;
-          font: 700 20px/1.2 'Inria Sans', sans-serif;
-          cursor: pointer;
+
+        .feature-content {
+            flex: 1;
         }
-        
-        .contact-form {
-          max-width: 700px;
-          margin: 48px auto;
+
+        .feature-title {
+            font-size: 64px;
+            letter-spacing: -1.28px;
+            margin-bottom: 16px;
         }
-        
-        .form-group {
-          display: flex;
-          gap: 16px;
-          margin-bottom: 16px;
+
+        .feature-text {
+            font-size: 24px;
+            line-height: 32px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 24px;
+            font-family: 'Inria Sans', sans-serif;
         }
-        
-        .form-input {
-          flex: 1;
-          min-height: 44px;
-          border-radius: 8px;
-          background: #000;
-          border: 2px solid rgba(255,255,255,0.24);
-          color: #fff;
-          padding: 12px;
-          font: 400 15px/1 'Plus Jakarta Sans', sans-serif;
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(193, 29, 29, 1);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: 'Inria Sans', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            transition: background 0.3s ease;
         }
-        
-        .form-textarea {
-          min-height: 124px;
-          width: 100%;
+
+        .button:hover {
+            background: rgba(193, 29, 29, 0.8);
         }
-        
+
+        .feature-image {
+            flex: 1;
+        }
+
+        .feature-image img {
+            width: 100%;
+            border-radius: 16px;
+        }
+
         .testimonials {
-          display: flex;
-          gap: 24px;
-          overflow-x: auto;
-          padding: 48px 0;
+            max-width: 1080px;
+            margin: 96px auto;
+            overflow: hidden;
         }
-        
+
+        .testimonials-title {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 48px;
+            letter-spacing: -0.48px;
+        }
+
+        .testimonials-container {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding: 24px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .testimonial-card {
-          min-width: 240px;
-          width: 288px;
-          border-radius: 16px;
-          border: 2px solid rgba(255,255,255,0.24);
-          padding: 24px;
-          background: #000;
+            min-width: 288px;
+            padding: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.24);
+            border-radius: 16px;
+            scroll-snap-align: start;
         }
-        
+
         .testimonial-header {
-          display: flex;
-          align-items: center;
-          gap: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
         }
-        
-        .testimonial-avatar {
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
+
+        .testimonial-image {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
         }
-        
-        .testimonial-author {
-          color: #fff;
-          font: 700 15px/1 'Inria Sans', sans-serif;
+
+        .testimonial-info h3 {
+            font-family: 'Inria Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
         }
-        
-        .testimonial-role {
-          color: rgba(255,255,255,0.6);
-          font: 400 15px/1 'Inria Sans', sans-serif;
+
+        .testimonial-info p {
+            font-family: 'Inria Sans', sans-serif;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6);
         }
-        
+
         .testimonial-content {
-          color: #fff;
-          font: 400 20px/24px 'Inria Sans', sans-serif;
-          margin-top: 16px;
+            font-family: 'Inria Sans', sans-serif;
+            font-size: 20px;
+            line-height: 24px;
         }
-        
+
+        .contact {
+            max-width: 700px;
+            margin: 96px auto;
+            text-align: center;
+        }
+
+        .contact-title {
+            font-family: 'Domine', serif;
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .contact-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 48px;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .input {
+            flex: 1;
+            padding: 12px;
+            background: black;
+            border: 2px solid rgba(255, 255, 255, 0.24);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+        }
+
+        .textarea {
+            min-height: 124px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            align-self: flex-start;
+            background: rgba(193, 29, 29, 1);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'Inria Sans', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background: rgba(193, 29, 29, 0.8);
+        }
+
         .footer {
-          background: #000;
-          padding: 96px 0 24px;
-          color: #fff;
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 96px 48px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
-        .footer-content {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 40px 100px;
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Red Hat Display', sans-serif;
+            font-size: 28px;
+            letter-spacing: -0.28px;
         }
-        
-        .footer-copyright {
-          color: rgba(255,255,255,0.6);
-          font: 500 28px/1 'Red Hat Display', sans-serif;
-          letter-spacing: -0.28px;
-        }
-        
+
         .footer-button {
-          border: 2px solid rgba(255,255,255,0.16);
-          border-radius: 8px;
-          padding: 12px 24px;
-          font: 700 20px/1.2 'Inria Sans', sans-serif;
+            padding: 12px 24px;
+            border: 2px solid rgba(255, 255, 255, 0.16);
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Inria Sans', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            transition: border-color 0.3s ease;
         }
-        
-        .visually-hidden {
-          position: absolute;
-          width: 1px;
-          height: 1px;
-          padding: 0;
-          margin: -1px;
-          overflow: hidden;
-          clip: rect(0,0,0,0);
-          border: 0;
+
+        .footer-button:hover {
+            border-color: rgba(255, 255, 255, 0.4);
         }
-        
+
+        @media (max-width: 1200px) {
+            .main {
+                padding: 0 24px;
+            }
+        }
+
         @media (max-width: 991px) {
-          .cyberpunk-portfolio {
-            padding: 0 20px;
-          }
-          
-          .nav-container {
-            padding: 0 20px;
-          }
-          
-          .hero {
-            font-size: 40px;
-          }
-          
-          .hero-image {
-            margin-top: 40px;
-          }
-          
-          .section-title {
-            font-size: 40px;
-          }
-          
-          .cta-button {
-            padding: 0 20px;
-          }
-          
-          .footer-button {
-            padding: 0 20px;
-          }
+            .hero-title {
+                font-size: 64px;
+            }
+
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature {
+                flex-direction: column;
+            }
+
+            .feature-image {
+                order: -1;
+            }
         }
-        </style>
-    </head>
-    <body>
-        <div class="cyberpunk-portfolio">
-        <header class="header">
-            <nav class="nav-container">
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-title {
+                font-size: 48px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <div class="nav-links">
                 <a href="#home">Home</a>
                 <a href="#portfolio">Portfolio</a>
                 <a href="#about">About</a>
             </div>
-            <a href="#contact">Contact</a>
-            <div class="brand">NeonPortfolio</div>
-            </nav>
-        </header>
-        
-        <main class="main-content">
-            <section class="hero">
-            <h1 class="hero-h1">Welcome to the Future</h1>
-            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ff9e61afbe1607d7c1d8a4e0ec3c9cff440ce456c0e5f76b73dece5fc1c6ce6c?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Futuristic cityscape with neon lights" class="hero-image">
-            </section>
-        
-            <section class="project-grid">
-            <div class="project-row">
-                <article class="project-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/19d73ddfe4bd82a539df34436a8cb33487bb45d692d1ffbd0878df644fec099c?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Neon cityscape photography" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">Neon Cityscape</h3>
-                    <p class="project-category">Photography</p>
-                </div>
-                </article>
-        
-                <article class="project-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4d299aaf3a6c98ef1e83915ded61091faeee903233fb461a3209cc1af9c6b536?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Cyberpunk portrait illustration" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">Cyberpunk Portrait</h3>
-                    <p class="project-category">Illustration</p>
-                </div>
-                </article>
-        
-                <article class="project-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ebd20ae1ab3746089dca025288bd620b94e6b4a30cf2aa9ad9ae8eb0c353aa6?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Digital glitch art" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">Glitch Art</h3>
-                    <p class="project-category">Digital Art</p>
-                </div>
-                </article>
+            <a href="#" class="logo">NEONPORTFOLIO</a>
+            <div class="nav-links">
+                <a href="#contact">Contact</a>
             </div>
-        
-            <div class="project-row">
-                <article class="project-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/78664ec5e899875e2f590c9be5d44289d6597a4043afa99a55e6c523c4ff7ee6?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Holographic advertisement designs" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">Holographic Ads</h3>
-                    <p class="project-category">Graphic Design</p>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="hero" id="home">
+            <h1 class="hero-title">Welcome to the Future</h1>
+            <img src="main.png" alt="Futuristic cityscape" class="hero-image">
+        </section>
+
+        <section class="grid" id="portfolio">
+            <div class="card">
+                <img src="grid-1.png" alt="Neon Cityscape">
+                <div class="card-content">
+                    <h2 class="card-title">Neon Cityscape</h2>
+                    <p class="card-subtitle">Photography</p>
                 </div>
-                </article>
-        
-                <article class="project-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c3ff4e3e61e16d8f4f2eb2a0ba5af87e9535ce6de3851f342ddd59aff2bb6086?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Dystopian future concept art" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">Dystopian Future</h3>
-                    <p class="project-category">Concept Art</p>
-                </div>
-                </article>
-        
-                <article class="project-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac4b7f45c5b16aff3ffe72ec4f2c98a702fc99a0570b137bd5b22b02e4121c95?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Neon dreams photography" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">Neon Dreams</h3>
-                    <p class="project-category">Photography</p>
-                </div>
-                </article>
             </div>
-        
-            <div class="project-row">
-                <article class="project-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/0f4710988872125cda59260a035fbce8eb1e0fb30260a603453aa36e61d24fac?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Tech noir illustration" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">Tech Noir</h3>
-                    <p class="project-category">Illustration</p>
+            <div class="card">
+                <img src="grid-2.png" alt="Neon Cityscape">
+                <div class="card-content">
+                    <h2 class="card-title">Neon Cityscape</h2>
+                    <p class="card-subtitle">Photography</p>
                 </div>
-                </article>
-        
-                <article class="project-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/bce0115587dfe8bf16c28fca570329447721e62dba4dd19d4f72440ddc6a9906?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Digital decay artwork" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">Digital Decay</h3>
-                    <p class="project-category">Digital Art</p>
-                </div>
-                </article>
-        
-                <article class="project-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1018ec6098f25b6a93a90ce41cabd58a2c86d9595081ab4d6a4b28e3505d4275?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Urban glow photography" class="project-image">
-                <div class="project-info">
-                    <h3 class="project-title">Urban Glow</h3>
-                    <p class="project-category">Photography</p>
-                </div>
-                </article>
             </div>
-            </section>
-        
-            <section class="contact-section">
-            <h2 class="section-title">Get in Touch</h2>
-            <p class="section-description">Feel free to reach out for collaborations or just a friendly chat.</p>
-        
-            <form class="contact-form">
-                <div class="form-group">
-                <div>
-                    <label for="firstName" class="visually-hidden">First name</label>
-                    <input type="text" id="firstName" class="form-input" placeholder="First name" required>
+            <div class="card">
+                <img src="grid-3.png" alt="Neon Cityscape">
+                <div class="card-content">
+                    <h2 class="card-title">Neon Cityscape</h2>
+                    <p class="card-subtitle">Photography</p>
                 </div>
-                <div>
-                    <label for="lastName" class="visually-hidden">Last name</label>
-                    <input type="text" id="lastName" class="form-input" placeholder="Last name" required>
+            </div>
+            <div class="card">
+                <img src="grid-4.png" alt="Neon Cityscape">
+                <div class="card-content">
+                    <h2 class="card-title">Neon Cityscape</h2>
+                    <p class="card-subtitle">Photography</p>
                 </div>
+            </div>
+            <div class="card">
+                <img src="grid-5.png" alt="Neon Cityscape">
+                <div class="card-content">
+                    <h2 class="card-title">Neon Cityscape</h2>
+                    <p class="card-subtitle">Photography</p>
                 </div>
-                
-                <div>
-                <label for="email" class="visually-hidden">Email</label>
-                <input type="email" id="email" class="form-input" placeholder="Email" required>
+            </div>
+            <div class="card">
+                <img src="grid-6.png" alt="Neon Cityscape">
+                <div class="card-content">
+                    <h2 class="card-title">Neon Cityscape</h2>
+                    <p class="card-subtitle">Photography</p>
                 </div>
-        
-                <div>
-                <label for="message" class="visually-hidden">Message</label>
-                <textarea id="message" class="form-input form-textarea" placeholder="Your message" required></textarea>
+            </div>
+            <div class="card">
+                <img src="grid-7.png" alt="Neon Cityscape">
+                <div class="card-content">
+                    <h2 class="card-title">Neon Cityscape</h2>
+                    <p class="card-subtitle">Photography</p>
                 </div>
-        
-                <button type="submit" class="cta-button">Submit</button>
+            </div>
+            <div class="card">
+                <img src="grid-8.png" alt="Neon Cityscape">
+                <div class="card-content">
+                    <h2 class="card-title">Neon Cityscape</h2>
+                    <p class="card-subtitle">Photography</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="grid-9.png" alt="Neon Cityscape">
+                <div class="card-content">
+                    <h2 class="card-title">Neon Cityscape</h2>
+                    <p class="card-subtitle">Photography</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pretext">
+            <div class="feature-pretext">
+                <h2>NeonPortfolio</h2>
+                <p>Explore my latest projects inspired by the neon-lit streets of a cyberpunk future.</p>
+            </div>
+        </section>
+
+        <section class="feature">
+            <div class="feature-content">
+                <h2 class="feature-title">Cyberpunk Art</h2>
+                <p class="feature-text">Immerse yourself in the vibrant world of cyberpunk art, where technology and urban decay collide.</p>
+                <a href="#contact" class="button">Explore My Work</a>
+            </div>
+            <div class="feature-image">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/59ad2ba29534da889ca55dc80f477e5f6be6a81434e7fe471c3de7aa90afb00f?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Cyberpunk artwork showcase">
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2 class="testimonials-title">What My Clients Say</h2>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="test-1.png" alt="Liora Kavanagh" class="testimonial-image">
+                        <div class="testimonial-info">
+                            <h3>Liora Kavanagh</h3>
+                            <p>Art Director</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-content">A true visionary in the world of digital art.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="test-2.png" alt="Liora Kavanagh" class="testimonial-image">
+                        <div class="testimonial-info">
+                            <h3>Quentin Driscoll</h3>
+                            <p>Photographer</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-content">Transforms the ordinary into the extraordinary.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="test-3.png" alt="Liora Kavanagh" class="testimonial-image">
+                        <div class="testimonial-info">
+                            <h3>Zara Huxley</h3>
+                            <p>Graphic Designer</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-content">Innovative, creative, and always pushing boundaries.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="test-4.png" alt="Liora Kavanagh" class="testimonial-image">
+                        <div class="testimonial-info">
+                            <h3>Jace Morrow</h3>
+                            <p>Concept Artist</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-content">Brings a unique perspective to every project.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="test-5.png" alt="Liora Kavanagh" class="testimonial-image">
+                        <div class="testimonial-info">
+                            <h3>Liora Kavanagh</h3>
+                            <p>Art Director</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-content">A true visionary in the world of digital art.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <h2 class="contact-title">Get in Touch</h2>
+            <p class="contact-text">Feel free to reach out for collaborations or just a friendly chat.</p>
+            <form class="form">
+                <div class="form-row">
+                    <input type="text" placeholder="First name" class="input">
+                    <input type="text" placeholder="Last name" class="input">
+                </div>
+                <input type="email" placeholder="Email" class="input">
+                <textarea placeholder="Message" class="input textarea"></textarea>
+                <button type="submit" class="submit-button">Submit</button>
             </form>
-            </section>
-        
-            <section class="testimonials">
-            <article class="testimonial-card">
-                <div class="testimonial-header">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c5565300bfbcdff56e0926050928e9bcb69435c7ccf3b959003dc0c5e75c6615?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Liora Kavanagh" class="testimonial-avatar">
-                <div>
-                    <p class="testimonial-author">Liora Kavanagh</p>
-                    <p class="testimonial-role">Art Director</p>
-                </div>
-                </div>
-                <p class="testimonial-content">A true visionary in the world of digital art.</p>
-            </article>
-        
-            <article class="testimonial-card">
-                <div class="testimonial-header">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/9ac35b3c36520c6dc15088f17a3afcf56aad9ad9a21674011124015d026cb65e?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Quentin Driscoll" class="testimonial-avatar">
-                <div>
-                    <p class="testimonial-author">Quentin Driscoll</p>
-                    <p class="testimonial-role">Photographer</p>
-                </div>
-                </div>
-                <p class="testimonial-content">Transforms the ordinary into the extraordinary.</p>
-            </article>
-        
-            <article class="testimonial-card">
-                <div class="testimonial-header">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba79c1ac5c5f334a7c3b889b79d4bb7a569219d772f691249a9733e472747b97?placeholderIfAbsent=true&apiKey=c4150cd687ac4870a74c87d61dc95429" alt="Zara Huxley" class="testimonial-avatar">
-                <div>
-                    <p class="testimonial-author">Zara Huxley</p>
-                    <p class="testimonial-role">Graphic Designer</p>
-                </div>
-                </div>
-                <p class="testimonial-content">Innovative, creative, and always pushing boundaries.</p>
-            </article>
-            </section>
-        </main>
-        
-        <footer class="footer">
-            <div class="footer-content">
-            <p class="footer-copyright">2023 NeonPortfolio</p>
-            <button class="footer-button">Contact Me</button>
-            </div>
-        </footer>
-        </div>
-    </body>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer-text">2023 NeonPortfolio</p>
+        <a href="#contact" class="footer-button">Contact Me</a>
+    </footer>
+
+    <script>
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelectorAll('.nav-links').forEach(nav => {
+                nav.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
 </html>
